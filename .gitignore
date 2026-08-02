@@ -1,0 +1,15 @@
+.tools/
+.env
+.env.*
+!.env.example
+target/
+*.log
+.idea/
+.vscode/
+*.iml
+.classpath
+.project
+.settings/
+.factorypath
+test-results/
+dependency-check-report.*

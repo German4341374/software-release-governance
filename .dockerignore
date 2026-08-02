@@ -1,0 +1,12 @@
+.git
+.github
+.idea
+.vscode
+.env
+target
+docs
+*.iml
+README.md
+DEMO.md
+CONTRIBUTING.md
+SECURITY.md

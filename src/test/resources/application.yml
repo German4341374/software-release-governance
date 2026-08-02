@@ -1,0 +1,15 @@
+spring:
+  jpa:
+    open-in-view: false
+    hibernate:
+      ddl-auto: validate
+governance:
+  scheduler:
+    enabled: false
+  sources:
+    connect-timeout: PT1S
+    request-timeout: PT2S
+    max-attempts: 2
+    initial-backoff: PT0.01S
+    github-api-base: http://127.0.0.1:9999
+    allow-http: true
