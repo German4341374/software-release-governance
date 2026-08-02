@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
-<head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>Release Governance</title><link rel="stylesheet" href="/css/site.css"></head>
+<head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>Software Release Governance</title><link rel="stylesheet" href="/css/site.css"></head>
 <body>
 <header th:replace="~{fragments :: header}"></header>
 <main class="container">
@@ -30,7 +30,7 @@
     </section>
   </div>
 
-  <section class="panel"><div class="heading"><div><p class="eyebrow">Version drift</p><h2>Environment status</h2></div></div>
+  <section class="panel"><div class="heading"><div><p class="eyebrow">Version drift</p><h2>Outdated environments</h2></div></div>
     <table><thead><tr><th>Product</th><th>Environment</th><th>Installed</th><th>Latest stable</th><th>Status</th></tr></thead><tbody>
       <tr th:each="row : ${dashboard.versionStatus}"><td th:text="${row.product}"></td><td th:text="${row.environment}"></td><td><code th:text="${row.installedVersion}"></code></td><td><code th:text="${row.latestVersion ?: 'Unknown'}"></code></td><td><span class="badge" th:classappend="${row.outdated} ? 'FAILED' : 'SUCCESS'" th:text="${row.outdated} ? 'OUTDATED' : 'CURRENT'"></span></td></tr>
     </tbody></table><p class="empty" th:if="${#lists.isEmpty(dashboard.versionStatus)}">No deployments recorded yet.</p>

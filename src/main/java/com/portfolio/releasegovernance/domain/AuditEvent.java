@@ -5,6 +5,7 @@ import static com.portfolio.releasegovernance.domain.DomainEnums.AuditAction;
 import jakarta.persistence.*;
 import java.time.Instant;
 import java.util.UUID;
+import org.hibernate.annotations.ColumnTransformer;
 
 @Entity
 @Table(name = "audit_events")
@@ -15,7 +16,9 @@ public class AuditEvent {
     @Column(nullable = false) private UUID aggregateId;
     @Column(nullable = false, length = 120) private String actor;
     @Column(nullable = false, updatable = false) private Instant occurredAt = Instant.now();
-    @Column(nullable = false, columnDefinition = "jsonb") private String details = "{}";
+    @Column(nullable = false, columnDefinition = "jsonb")
+    @ColumnTransformer(write = "?::jsonb")
+    private String details = "{}";
     @Column(length = 100) private String correlationId;
 
     protected AuditEvent() {}
