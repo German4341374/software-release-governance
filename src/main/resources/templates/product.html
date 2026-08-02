@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title th:text="${product.name} + ' · Release Governance'"></title><link rel="stylesheet" href="/css/site.css"></head>
+<body><header th:replace="~{fragments :: header}"></header><main class="container">
+  <div th:replace="~{fragments :: messages}"></div>
+  <section class="hero compact"><div><p class="eyebrow" th:text="${product.vendor}"></p><h1 th:text="${product.name}"></h1><p th:text="${product.description}"></p></div>
+    <form method="post" th:action="@{/products/{id}/refresh(id=${product.id})}" th:if="${product.sourceType.name() != 'MANUAL'}"><button class="button primary">Refresh source</button></form></section>
+  <section class="stats small"><article><strong th:text="${product.sourceType}"></strong><span>Adapter</span></article><article><strong th:text="${product.lastCheckStatus}"></strong><span>Last check</span></article><article><strong th:text="${policy.minimumSupportedVersion ?: '—'}"></strong><span>Minimum version</span></article></section>
+  <div class="grid two">
+    <section class="panel"><p class="eyebrow">Manual source</p><h2>Import release</h2><form method="post" th:action="@{/products/{id}/releases(id=${product.id})}" class="form-grid">
+      <label>Version<input name="version" placeholder="2.4.0" required></label><label>Channel<select name="channel"><option th:each="channel : ${channels}" th:value="${channel}" th:text="${channel}"></option></select></label><label class="full">Notes<textarea name="notes"></textarea></label><button class="button" type="submit">Import</button></form></section>
+    <section class="panel"><p class="eyebrow">Active policy</p><h2>Production controls</h2><ul class="policy-list"><li>Prerelease blocked: <strong th:text="${policy.prohibitPrereleaseInProduction}"></strong></li><li>Approval required: <strong th:text="${policy.requireProductionApproval}"></strong></li><li>Maintenance window: <strong th:text="${policy.enforceMaintenanceWindow}"></strong></li><li>Emergency bypass: <strong th:text="${policy.emergencyBypassAllowed}"></strong></li><li>Blocked versions: <code th:text="${policy.blockedVersions ?: 'None'}"></code></li></ul></section>
+  </div>
+  <section class="panel"><div class="heading"><div><p class="eyebrow">Discovered</p><h2>Available releases</h2></div></div>
+    <div class="release-list"><article th:each="release : ${releases}" class="release"><div><strong th:text="${release.version}"></strong><span class="badge" th:text="${release.status}"></span><p><span th:text="${release.channel}"></span> · <span th:text="${release.sourceType}"></span></p></div>
+      <div class="release-actions">
+        <form method="post" action="/approvals"><input type="hidden" name="productId" th:value="${product.id}"><input type="hidden" name="releaseId" th:value="${release.id}"><select name="environmentId"><option th:each="env : ${environments}" th:value="${env.id}" th:text="${env.name}"></option></select><button class="button" type="submit">Request approval</button></form>
+        <form method="post" action="/deployments"><input type="hidden" name="productId" th:value="${product.id}"><input type="hidden" name="releaseId" th:value="${release.id}"><select name="environmentId"><option th:each="env : ${environments}" th:value="${env.id}" th:text="${env.name}"></option></select><label class="check"><input type="checkbox" name="emergency" value="true"> Emergency</label><input name="reason" placeholder="Emergency reason"><button class="button primary" type="submit">Schedule</button></form>
+      </div></article></div><p class="empty" th:if="${#lists.isEmpty(releases)}">No releases imported.</p>
+  </section>
+</main></body></html>

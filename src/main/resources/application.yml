@@ -1,0 +1,55 @@
+spring:
+  application:
+    name: software-release-governance
+  datasource:
+    url: ${DATABASE_URL:jdbc:postgresql://localhost:5432/release_governance}
+    username: ${DATABASE_USERNAME:release_app}
+    password: ${DATABASE_PASSWORD:}
+  jpa:
+    open-in-view: false
+    hibernate:
+      ddl-auto: validate
+    properties:
+      hibernate:
+        jdbc:
+          time_zone: UTC
+  flyway:
+    enabled: true
+  thymeleaf:
+    cache: true
+  jackson:
+    default-property-inclusion: non_null
+
+server:
+  shutdown: graceful
+  error:
+    include-message: never
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health,info,metrics
+  endpoint:
+    health:
+      probes:
+        enabled: true
+
+governance:
+  scheduler:
+    enabled: ${RELEASE_CHECKS_ENABLED:true}
+    fixed-delay: ${RELEASE_CHECK_DELAY:PT30M}
+  sources:
+    connect-timeout: ${SOURCE_CONNECT_TIMEOUT:PT3S}
+    request-timeout: ${SOURCE_REQUEST_TIMEOUT:PT8S}
+    max-attempts: ${SOURCE_MAX_ATTEMPTS:3}
+    initial-backoff: ${SOURCE_INITIAL_BACKOFF:PT0.25S}
+    github-api-base: ${GITHUB_API_BASE:https://api.github.com}
+    allow-http: ${SOURCE_ALLOW_HTTP:false}
+
+logging:
+  structured:
+    format:
+      console: ecs
+  level:
+    org.hibernate.SQL: warn

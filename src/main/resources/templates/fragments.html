@@ -1,0 +1,13 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<body>
+<header class="topbar" th:fragment="header">
+  <a class="brand" href="/"><span>RG</span> Release Governance</a>
+  <nav><a href="/">Dashboard</a><a href="/approvals">Approvals</a><a href="/deployments">Deployments</a><a href="/actuator/health">Health</a></nav>
+</header>
+<div th:fragment="messages">
+  <div class="notice" th:if="${message}" th:text="${message}"></div>
+  <div class="notice error" th:if="${error}" th:text="${error}"></div>
+</div>
+</body>
+</html>
