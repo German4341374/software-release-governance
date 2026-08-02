@@ -1,5 +1,5 @@
 # syntax=docker/dockerfile:1.12
-FROM eclipse-temurin:25.0.3_9-jdk-alpine-3.23 AS build
+FROM eclipse-temurin:26-jdk-alpine-3.23 AS build
 WORKDIR /workspace
 
 COPY .mvn/ .mvn/
@@ -9,7 +9,7 @@ RUN ./mvnw --batch-mode --no-transfer-progress dependency:go-offline
 COPY src/ src/
 RUN ./mvnw --batch-mode --no-transfer-progress clean package
 
-FROM eclipse-temurin:25.0.3_9-jre-alpine-3.23 AS runtime
+FROM eclipse-temurin:26-jre-alpine-3.23 AS runtime
 RUN addgroup -S governance --gid 10001 \
     && adduser -S governance -G governance -u 10001 \
     && mkdir -p /opt/governance \
