@@ -26,7 +26,7 @@ CREATE TABLE environments (
     zone_id VARCHAR(60) NOT NULL,
     maintenance_start TIME,
     maintenance_end TIME,
-    maintenance_days VARCHAR(40),
+    maintenance_days VARCHAR(80),
     active BOOLEAN NOT NULL DEFAULT TRUE,
     created_at TIMESTAMPTZ NOT NULL,
     CONSTRAINT ck_maintenance_boundaries CHECK (

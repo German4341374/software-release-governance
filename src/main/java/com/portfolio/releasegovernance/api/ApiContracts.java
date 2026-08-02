@@ -29,7 +29,7 @@ public final class ApiContracts {
             @NotBlank @Size(max = 60) String zoneId,
             LocalTime maintenanceStart,
             LocalTime maintenanceEnd,
-            @Size(max = 40) String maintenanceDays) {}
+            @Size(max = 80) String maintenanceDays) {}
 
     public record EnvironmentResponse(
             UUID id, String name, EnvironmentType type, String zoneId,

@@ -16,7 +16,7 @@ public class ReleaseEnvironment {
     @Column(nullable = false, length = 60) private String zoneId = "UTC";
     private LocalTime maintenanceStart;
     private LocalTime maintenanceEnd;
-    @Column(length = 40) private String maintenanceDays;
+    @Column(length = 80) private String maintenanceDays;
     @Column(nullable = false) private boolean active = true;
     @Column(nullable = false, updatable = false) private Instant createdAt = Instant.now();
 
