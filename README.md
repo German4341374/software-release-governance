@@ -272,7 +272,7 @@ See [SECURITY.md](SECURITY.md) for reporting and production-hardening guidance.
 
 Operational diagnosis is detailed in [Source outage runbook](docs/runbooks/source-outage.md).
 
-## Limitations and future improvements
+## Known limitations
 
 - No authentication or authorization; actor names are evidence labels, not verified identities.
 - Deployment is simulated/recorded, not executed against infrastructure.
