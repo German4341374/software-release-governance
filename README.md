@@ -3,9 +3,12 @@
 [![CI](https://github.com/German4341374/software-release-governance/actions/workflows/ci.yml/badge.svg)](https://github.com/German4341374/software-release-governance/actions/workflows/ci.yml)
 [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
 
-Software Release Governance is a compact release-control service for teams that operate software across development, staging, and production. It discovers available releases, compares semantic versions, evaluates deployment policy, records approval evidence, and preserves an append-only audit trail.
+Keep track of installed versions across development, staging, and production.
+Import available releases, compare versions, and check whether an update meets the rules
+for its environment before approving it.
 
-The project deliberately stops at governance: it records a deployment decision and its reported result, but it does not execute changes on target machines.
+The app records deployment decisions and reported results. It doesn't install software
+or run commands on the target machines.
 
 ## Features
 
